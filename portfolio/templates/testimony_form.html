@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Leave Testimony
+{% endblock %}
+
+{% block content %}
+
+<section class="contact">
+
+    <h2 class="section-title">Leave a Testimony</h2>
+
+    <form method="POST" style="max-width:600px; margin:auto;">
+
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button type="submit" class="btn">
+            Submit
+        </button>
+
+        <a href="{% url 'testimony_list' %}" class="btn">
+            Back to Testimonials
+        </a>
+
+    </form>
+
+</section>
+
+{% endblock %}

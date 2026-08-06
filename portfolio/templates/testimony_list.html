@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Testimonials
+{% endblock %}
+
+{% block content %}
+
+<section class="contact">
+
+    <h2 class="section-title">Testimonials</h2>
+
+    <div class="contact-container">
+
+        {% for testimony in testimonies %}
+
+        <div class="contact-box">
+
+            <i class="fas fa-comment-dots"></i>
+
+            <h3>{{ testimony.full_name }}</h3>
+
+            <p>{{ testimony.content|truncatewords:20 }}</p>
+
+            <br>
+
+            <a href="{% url 'testimony_detail' testimony.id %}" class="btn">
+                Read More
+            </a>
+
+        </div>
+
+        {% empty %}
+
+        <p>No testimonials yet.</p>
+
+        {% endfor %}
+
+    </div>
+
+    <div style="text-align:center; margin-top:40px;">
+
+        <a href="{% url 'add_testimony' %}" class="btn">
+            Leave Testimony
+        </a>
+
+    </div>
+
+</section>
+
+{% endblock %}

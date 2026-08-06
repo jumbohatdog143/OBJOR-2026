@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Testimony
+{% endblock %}
+
+{% block content %}
+
+<h1>{{ testimony.full_name }}</h1>
+
+<p>
+    {{ testimony.content }}
+</p>
+
+<br>
+
+<a href="{% url 'testimony_list' %}">
+    Back to Testimonies
+</a>
+
+{% endblock %}

@@ -1,0 +1,260 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Khalia's Portfolio
+{% endblock %}
+
+{% block content %}
+
+<section class="home" id="home">
+
+    <div class="home-img">
+        <img src="{% static 'images/Screenshot 2026-06-29 022212.png' %}" alt="Profile Picture">
+    </div>
+
+    <div class="home-content">
+
+        <h1>
+            Hi, It's
+            <span>{{ info.first_name }} {{ info.last_name }}</span>
+        </h1>
+
+        <h3 class="typing-text">
+            I'm a <span></span>
+        </h3>
+
+        <p>
+            {{ info.summary }}
+        </p>
+
+        <div class="social-icons">
+
+            {% if info.linkedin %}
+            <a href="{{ info.linkedin }}" target="_blank">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+            {% endif %}
+
+            {% if info.github %}
+            <a href="{{ info.github }}" target="_blank">
+                <i class="fab fa-github"></i>
+            </a>
+            {% endif %}
+
+            {% if info.facebook %}
+            <a href="{{ info.facebook }}" target="_blank">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            {% endif %}
+
+            {% if info.instagram %}
+            <a href="{{ info.instagram }}" target="_blank">
+                <i class="fab fa-instagram"></i>
+            </a>
+            {% endif %}
+
+        </div>
+
+        <a href="#personal-info" class="btn">Hire Me</a>
+
+    </div>
+
+</section>
+
+<section class="skills" id="skills">
+
+    <h2 class="section-title">My Skills</h2>
+
+    <div class="skills-container">
+
+        {% for skill in skills %}
+
+        <div class="skill-box">
+
+            <i class="{{ skill.icon }}"></i>
+
+            <h3>{{ skill.skill_name }}</h3>
+
+            <p>{{ skill.description }}</p>
+
+        </div>
+
+        {% empty %}
+
+        <p>No skills available.</p>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+
+<section class="education" id="education">
+
+    <h2 class="section-title">Education</h2>
+
+    <div class="education-container">
+
+        {% for education in educations %}
+
+        <div class="edu-box">
+
+            <h3>{{ education.degree }}</h3>
+
+            <p>{{ education.school_name }}</p>
+
+            {% if education.description %}
+            <small>{{ education.description }}</small>
+            {% endif %}
+
+        </div>
+
+        {% empty %}
+
+        <p>No education records available.</p>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+
+<section class="projects" id="projects">
+
+    <h2 class="section-title">Projects</h2>
+
+    <div class="projects-container">
+
+        {% for project in projects %}
+
+        <a href="{% url 'project_detail' project.id %}" class="project-link">
+
+            <div class="project-box">
+                <h3>{{ project.project_name }}</h3>
+            </div>
+
+        </a>
+
+        {% empty %}
+
+        <p>No projects available.</p>
+
+        {% endfor %}
+
+    </div>
+
+    <div style="text-align:center; margin-top:30px;">
+        <a href="{% url 'add_project' %}" class="btn">
+            Add Project
+        </a>
+    </div>
+
+</section>
+
+
+<section class="contact" id="personal-info">
+
+    <h2 class="section-title">
+        Personal Information
+    </h2>
+
+    <p>Info object: {{ info }}</p>
+
+    {% if info %}
+
+    <div class="contact-container">
+
+        <div class="contact-box">
+            <i class="fas fa-user"></i>
+            <h3>Full Name</h3>
+            <p>
+                {{ info.first_name }}
+                {{ info.middle_name }}
+                {{ info.last_name }}
+            </p>
+        </div>
+
+        <div class="contact-box">
+            <i class="fas fa-phone"></i>
+            <h3>Contact Number</h3>
+            <p>{{ info.contact_number }}</p>
+        </div>
+
+        <div class="contact-box">
+            <i class="fas fa-envelope"></i>
+            <h3>Student Email</h3>
+            <p>{{ info.student_email }}</p>
+        </div>
+
+        <div class="contact-box">
+            <i class="fas fa-envelope-open"></i>
+            <h3>Personal Email</h3>
+            <p>delacruzkhaliaczarina@gmail.com</p>
+        </div>
+
+        <div class="contact-box">
+            <i class="fas fa-location-dot"></i>
+            <h3>Address</h3>
+            <p>{{ info.address }}</p>
+        </div>
+
+    </div>
+
+    {% endif %}
+
+</section>
+
+<section class="contact" id="contact">
+
+    <h2 class="section-title">
+        Contact Me
+    </h2>
+
+    <div class="contact-container">
+
+        <div class="contact-box">
+
+            <i class="fas fa-envelope"></i>
+
+            <h3>Email</h3>
+
+            <p>{{ info.student_email }}</p>
+
+        </div>
+
+        <div class="contact-box">
+
+            <i class="fas fa-phone"></i>
+
+            <h3>Phone</h3>
+
+            <p>{{ info.contact_number }}</p>
+
+        </div>
+
+    </div>
+
+</section>
+
+<section class="testimonials" id="testimonials">
+
+    <h2 class="section-title">Testimonials</h2>
+
+    <div style="text-align:center; margin-top:30px;">
+
+        <a href="{% url 'testimony_list' %}" class="btn">
+            View Testimonials
+        </a>
+
+        <a href="{% url 'add_testimony' %}" class="btn" style="margin-left:15px;">
+            Leave Testimony
+        </a>
+
+    </div>
+
+</section>
+
+{% endblock %}
