@@ -1,0 +1,51 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ project.project_name }}</title>
+
+    {% load static %}
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+
+<section class="projects">
+
+    <h2 class="section-title">
+        {{ project.project_name }}
+    </h2>
+
+    <div class="project-detail-box">
+
+        <h3>Description</h3>
+
+        <p>{{ project.description }}</p>
+
+        <h3>Technology Used</h3>
+
+        <p>{{ project.tech_stack }}</p>
+
+        {% if project.project_link %}
+        <a href="{{ project.project_link }}" target="_blank" class="btn">
+            View Project
+        </a>
+        {% endif %}
+
+        <br><br>
+
+        <a href="{% url 'home' %}" class="btn">
+            ← Back to Portfolio
+        </a>
+
+    </div>
+
+</section>
+
+</body>
+</html>

@@ -1,0 +1,71 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Personal Information</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+</head>
+
+<body>
+
+<header>
+    <a href="/" class="logo">Khalia's Portfolio</a>
+
+    <nav>
+        <a href="/">Home</a>
+        <a href="/projects/">Projects</a>
+        <a href="/personal-information/">Personal Information</a>
+    </nav>
+</header>
+
+
+<section class="personal-info">
+
+    <h1>Personal Information</h1>
+
+    {% if info %}
+
+    <h2>
+        {{ info.first_name }} {{ info.middle_name }} {{ info.last_name }}
+    </h2>
+
+
+    <p>
+        {{ info.summary }}
+    </p>
+
+
+    <p>
+        Contact Number:
+        {{ info.contact_number }}
+    </p>
+
+
+    <p>
+        Email:
+        {{ info.email }}
+    </p>
+
+
+    <p>
+        Address:
+        {{ info.address }}
+    </p>
+
+
+    {% else %}
+
+    <p>No personal information available.</p>
+
+    {% endif %}
+
+</section>
+
+
+</body>
+
+</html>
