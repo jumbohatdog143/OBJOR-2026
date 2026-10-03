@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Dashboard</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #0f172a 0%,
+                    #1e293b 45%,
+                    #0f172a 100%
+                );
+
+            color: #ffffff;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1250px;
+            margin: 0 auto;
+            padding: 50px 0;
+        }
+
+        /* =========================
+           HEADER
+           ========================= */
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 35px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 34px;
+            font-weight: 700;
+        }
+
+        .header p {
+            margin-top: 8px;
+            color: #cbd5e1;
+            font-size: 15px;
+        }
+
+        .logout-button {
+            display: inline-block;
+            text-decoration: none;
+            background: #ef4444;
+            color: white;
+            padding: 11px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .logout-button:hover {
+            background: #dc2626;
+        }
+
+        /* =========================
+           SECTIONS
+           ========================= */
+
+        .section {
+            background: rgba(255, 255, 255, 0.97);
+            color: #1e293b;
+
+            padding: 28px;
+            margin-bottom: 30px;
+
+            border-radius: 14px;
+
+            box-shadow:
+                0 15px 35px rgba(0, 0, 0, 0.25);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            margin-bottom: 22px;
+        }
+
+        .section-header h2 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        /* =========================
+           BUTTONS
+           ========================= */
+
+        .create-button {
+            display: inline-block;
+
+            text-decoration: none;
+
+            background: #2563eb;
+            color: white;
+
+            padding: 11px 17px;
+
+            border-radius: 7px;
+
+            font-size: 14px;
+            font-weight: 600;
+
+            transition: 0.2s;
+        }
+
+        .create-button:hover {
+            background: #1d4ed8;
+        }
+
+        /* =========================
+           TABLE
+           ========================= */
+
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #1e293b;
+            color: white;
+
+            padding: 14px;
+
+            text-align: left;
+
+            font-size: 14px;
+        }
+
+        td {
+            padding: 14px;
+
+            border-bottom: 1px solid #e2e8f0;
+
+            vertical-align: top;
+
+            font-size: 14px;
+        }
+
+        tbody tr:hover {
+            background: #f8fafc;
+        }
+
+        /* =========================
+           PROJECT LINK
+           ========================= */
+
+        a.project-link {
+            color: #2563eb;
+            text-decoration: none;
+
+            word-break: break-word;
+        }
+
+        a.project-link:hover {
+            text-decoration: underline;
+        }
+
+        /* =========================
+           EMPTY / NO DATA
+           ========================= */
+
+        .empty-message {
+            text-align: center;
+
+            padding: 25px;
+
+            color: #64748b;
+        }
+
+        .no-tech {
+            color: #94a3b8;
+            font-style: italic;
+        }
+
+        /* =========================
+           TECH STACK PROJECTS
+           ========================= */
+
+        .tech-projects {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .tech-projects li {
+            margin-bottom: 5px;
+        }
+
+        .date {
+            white-space: nowrap;
+        }
+
+        /* =========================
+           MOBILE
+           ========================= */
+
+        @media (max-width: 768px) {
+
+            .container {
+                width: 94%;
+                padding: 30px 0;
+            }
+
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 18px;
+            }
+
+            .header h1 {
+                font-size: 28px;
+            }
+
+            .section {
+                padding: 20px;
+            }
+
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            th,
+            td {
+                padding: 10px;
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- =========================
+         DASHBOARD HEADER
+         ========================= -->
+
+    <div class="header">
+
+        <div>
+            <h1>Admin Dashboard</h1>
+
+            <p>
+                Manage your portfolio projects and technology stacks.
+            </p>
+        </div>
+
+        <a href="{% url 'admin_logout' %}" class="logout-button">
+            Logout
+        </a>
+
+    </div>
+
+
+    <!-- =========================
+         PROJECTS
+         ========================= -->
+
+    <div class="section">
+
+        <div class="section-header">
+
+            <h2>Projects</h2>
+
+            <a
+                href="{% url 'add_project' %}"
+                class="create-button"
+            >
+                + Create Project
+            </a>
+
+        </div>
+
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Project Name</th>
+                        <th>Description</th>
+                        <th>Tech Stack</th>
+                        <th>Link</th>
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% for project in projects %}
+
+                    <tr>
+
+                        <td>
+                            {{ project.project_name }}
+                        </td>
+
+
+                        <td>
+                            {{ project.description|truncatechars:50 }}
+                        </td>
+
+
+                        <td>
+
+                            {% if project.tech_stack %}
+
+                                {{ project.tech_stack.name }}
+
+                            {% else %}
+
+                                <span class="no-tech">
+                                    No tech stack
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <td>
+
+                            {% if project.project_link %}
+
+                                <a
+                                    href="{{ project.project_link }}"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="project-link"
+                                >
+                                    {{ project.project_link }}
+                                </a>
+
+                            {% else %}
+
+                                <span class="no-tech">
+                                    No link
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                    </tr>
+
+                    {% empty %}
+
+                    <tr>
+
+                        <td
+                            colspan="4"
+                            class="empty-message"
+                        >
+                            No projects have been created yet.
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         TECH STACKS
+         ========================= -->
+
+    <div class="section">
+
+        <div class="section-header">
+
+            <h2>Tech Stacks</h2>
+
+            <a
+                href="{% url 'add_tech_stack' %}"
+                class="create-button"
+            >
+                + Create Tech Stack
+            </a>
+
+        </div>
+
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Tech Stack Name</th>
+                        <th>Project It Was Used</th>
+                        <th>Date Added</th>
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% for tech in tech_stacks %}
+
+                    <tr>
+
+                        <td>
+                            {{ tech.name }}
+                        </td>
+
+
+                        <td>
+
+                            {% for project in tech.projects.all %}
+
+                                {{ project.project_name }}
+
+                                {% if not forloop.last %}
+                                    ,
+                                {% endif %}
+
+                            {% empty %}
+
+                                <span class="no-tech">
+                                    Not used in any project yet.
+                                </span>
+
+                            {% endfor %}
+
+                        </td>
+
+
+                        <td class="date">
+                            {{ tech.created_at|date:"M d, Y" }}
+                        </td>
+
+                    </tr>
+
+                    {% empty %}
+
+                    <tr>
+
+                        <td
+                            colspan="3"
+                            class="empty-message"
+                        >
+                            No tech stacks have been created yet.
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

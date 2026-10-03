@@ -1,27 +1,372 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-{% block title %}
-Add Project
-{% endblock %}
+    <title>Create Project - Khalia's Portfolio</title>
 
-{% block content %}
+    <style>
+        * {
+            box-sizing: border-box;
+        }
 
-<section class="contact" id="add-project">
+        body {
+            margin: 0;
+            min-height: 100vh;
+            padding: 40px 20px;
 
-    <h2 class="heading">Add <span>Project</span></h2>
+            font-family: Arial, sans-serif;
+
+            background: #020214;
+            color: white;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .form-container {
+            width: 100%;
+            max-width: 650px;
+
+            padding: 40px;
+
+            background: #0b0b22;
+
+            border-radius: 15px;
+
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.5);
+        }
+
+        .form-container h1 {
+            margin: 0 0 10px;
+
+            text-align: center;
+
+            font-size: 30px;
+        }
+
+        .form-description {
+            margin: 0 0 30px;
+
+            text-align: center;
+
+            color: #bdbdd0;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group > label {
+            display: block;
+
+            margin-bottom: 8px;
+
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="url"],
+        textarea {
+            width: 100%;
+
+            padding: 13px;
+
+            border: 1px solid #343454;
+            border-radius: 8px;
+
+            background: #050517;
+            color: white;
+
+            font-size: 15px;
+
+            outline: none;
+        }
+
+        input[type="text"]:focus,
+        input[type="url"]:focus,
+        textarea:focus {
+            border-color: #8b5cf6;
+        }
+
+        textarea {
+            min-height: 130px;
+
+            resize: vertical;
+        }
+
+        /* TECH STACK RADIO BUTTONS */
+
+        .tech-stack-options {
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 10px;
+
+            margin-top: 10px;
+        }
+
+        .tech-stack-option {
+            display: flex;
+
+            align-items: center;
+
+            padding: 13px 15px;
+
+            background: #050517;
+
+            border: 1px solid #343454;
+
+            border-radius: 8px;
+        }
+
+        .tech-stack-option:hover {
+            border-color: #8b5cf6;
+        }
+
+        .tech-stack-option input[type="radio"] {
+            width: 18px;
+            height: 18px;
+
+            margin: 0 10px 0 0;
+
+            cursor: pointer;
+        }
+
+        .tech-stack-option label {
+            margin: 0;
+
+            font-weight: normal;
+
+            cursor: pointer;
+        }
+
+        /* ERRORS */
+
+        .field-error {
+            margin-top: 8px;
+
+            color: #ff8f8f;
+
+            font-size: 14px;
+        }
+
+        .error-message {
+            margin-bottom: 20px;
+
+            padding: 12px;
+
+            background: #4a1515;
+
+            color: #ff8f8f;
+
+            border-radius: 8px;
+        }
+
+        /* BUTTON */
+
+        button {
+            width: 100%;
+
+            padding: 13px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            background: #8b5cf6;
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #7445d8;
+        }
+
+        /* BACK LINK */
+
+        .back-link {
+            display: block;
+
+            margin-top: 20px;
+
+            text-align: center;
+
+            color: #aaaac0;
+
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="form-container">
+
+    <h1>Create Project</h1>
+
+    <p class="form-description">
+        Add a new project to your portfolio.
+    </p>
+
 
     <form method="POST">
 
         {% csrf_token %}
 
-        {{ form.as_p }}
 
-        <button type="submit" class="btn">
-            Save Project
+        <!-- GENERAL FORM ERRORS -->
+
+        {% if form.non_field_errors %}
+
+            <div class="error-message">
+                {{ form.non_field_errors }}
+            </div>
+
+        {% endif %}
+
+
+        <!-- PROJECT NAME -->
+
+        <div class="form-group">
+
+            <label for="{{ form.project_name.id_for_label }}">
+                Project Name
+            </label>
+
+            {{ form.project_name }}
+
+            {% if form.project_name.errors %}
+
+                <div class="field-error">
+                    {{ form.project_name.errors }}
+                </div>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- PROJECT DESCRIPTION -->
+
+        <div class="form-group">
+
+            <label for="{{ form.description.id_for_label }}">
+                Project Description
+            </label>
+
+            {{ form.description }}
+
+            {% if form.description.errors %}
+
+                <div class="field-error">
+                    {{ form.description.errors }}
+                </div>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- TECH STACK -->
+
+        <div class="form-group">
+
+            <label>
+                Tech Stack
+            </label>
+
+
+            <div class="tech-stack-options">
+
+                {% for radio in form.tech_stack %}
+
+                    <div class="tech-stack-option">
+
+                        {{ radio.tag }}
+
+                        <label for="{{ radio.id_for_label }}">
+                            {{ radio.choice_label }}
+                        </label>
+
+                    </div>
+
+                {% empty %}
+
+                    <div class="field-error">
+                        No tech stacks available.
+                        Please create a tech stack first.
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+
+            {% if form.tech_stack.errors %}
+
+                <div class="field-error">
+                    {{ form.tech_stack.errors }}
+                </div>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- PROJECT LINK -->
+
+        <div class="form-group">
+
+            <label for="{{ form.project_link.id_for_label }}">
+                Link
+            </label>
+
+            {{ form.project_link }}
+
+            {% if form.project_link.errors %}
+
+                <div class="field-error">
+                    {{ form.project_link.errors }}
+                </div>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- SUBMIT -->
+
+        <button type="submit">
+            Create Project
         </button>
 
     </form>
 
-</section>
 
-{% endblock %}
+    <!-- BACK TO DASHBOARD -->
+
+    <a
+        class="back-link"
+        href="{% url 'dashboard' %}"
+    >
+        Back to Dashboard
+    </a>
+
+</div>
+
+</body>
+</html>
