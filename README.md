@@ -28,10 +28,8 @@ A Django-based personal portfolio website developed for the OBJOR-2026 course re
 
 Clone the repository and enter the project directory:
 
-    git clone <REPOSITORY_URL>
+    git clone [<REPOSITORY_URL>](https://github.com/jumbohatdog143/OBJOR-2026)
     cd OBJOR-2026
-
-Replace <REPOSITORY_URL> with the repository URL.
 
 ### 2. Create a virtual environment
 
@@ -147,18 +145,18 @@ The database file is intentionally excluded from Git. A fresh clone should creat
 
     OBJOR-2026/
     +-- portfolio/
-    ¦   +-- migrations/
-    ¦   +-- templates/
-    ¦   +-- admin.py
-    ¦   +-- forms.py
-    ¦   +-- models.py
-    ¦   +-- urls.py
-    ¦   +-- views.py
+    Â¦   +-- migrations/
+    Â¦   +-- templates/
+    Â¦   +-- admin.py
+    Â¦   +-- forms.py
+    Â¦   +-- models.py
+    Â¦   +-- urls.py
+    Â¦   +-- views.py
     +-- portfolio_project/
-    ¦   +-- settings.py
-    ¦   +-- urls.py
-    ¦   +-- asgi.py
-    ¦   +-- wsgi.py
+    Â¦   +-- settings.py
+    Â¦   +-- urls.py
+    Â¦   +-- asgi.py
+    Â¦   +-- wsgi.py
     +-- manage.py
     +-- requirements.txt
     +-- .env.example
@@ -172,7 +170,8 @@ Before deployment:
 
 1. Clone the repository.
 2. Create and activate a virtual environment.
-3. Install the dependencies from equirements.txt.
+3. Install the dependencies from 
+equirements.txt.
 4. Configure the environment variables.
 5. Run python manage.py migrate.
 6. Configure the PythonAnywhere web application to use the project's WSGI application.
