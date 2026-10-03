@@ -18,27 +18,107 @@ from django.contrib import admin
 from django.urls import path
 from portfolio import views
 
+
 urlpatterns = [
+    # =====================================================
+    # PUBLIC PORTFOLIO
+    # =====================================================
+
     path('', views.home, name='home'),
 
-    # Projects
-    path('projects/', views.project_list, name='projects'),
-    path('projects/add/', views.add_project, name='add_project'),
-    path('projects/<int:id>/', views.project_detail, name='project_detail'),
+    path(
+        'projects/',
+        views.project_list,
+        name='projects'
+    ),
 
-    # Personal Information
-    path('personal-information/', views.personal_information, name='personal_information'),
+    path(
+        'projects/<int:id>/',
+        views.project_detail,
+        name='project_detail'
+    ),
 
-    # Contact / Inquiry
-    path('contact/', views.inquiry, name='contact'),
+    path(
+        'personal-information/',
+        views.personal_information,
+        name='personal_information'
+    ),
 
-    # Testimonies
-    path('testimonies/', views.testimony_list, name='testimony_list'),
-    path('testimonies/add/', views.add_testimony, name='add_testimony'),
-    path('testimonies/<int:id>/', views.testimony_detail, name='testimony_detail'),
-    # Admin
-    path('admin/', admin.site.urls),
+    path(
+        'contact/',
+        views.inquiry,
+        name='contact'
+    ),
+
+    path(
+        'testimonies/',
+        views.testimony_list,
+        name='testimony_list'
+    ),
+
+    path(
+        'testimonies/add/',
+        views.add_testimony,
+        name='add_testimony'
+    ),
+
+    path(
+        'testimonies/<int:id>/',
+        views.testimony_detail,
+        name='testimony_detail'
+    ),
+
+
+    # =====================================================
+    # ADMIN SIGN-IN
+    # =====================================================
+
+    path(
+        'admin-login/',
+        views.admin_login,
+        name='admin_login'
+    ),
+
+    path(
+        'admin-logout/',
+        views.admin_logout,
+        name='admin_logout'
+    ),
+
+
+    # =====================================================
+    # ADMIN DASHBOARD
+    # =====================================================
+
+    path(
+        'dashboard/',
+        views.dashboard,
+        name='dashboard'
+    ),
+
+    path(
+        'projects/add/',
+        views.add_project,
+        name='add_project'
+    ),
+
+    path(
+        'tech-stacks/add/',
+        views.add_tech_stack,
+        name='add_tech_stack'
+    ),
+
+
+    # =====================================================
+    # DJANGO ADMIN
+    # =====================================================
+
+    path(
+        'admin/',
+        admin.site.urls
+    ),
 ]
+
 
 handler404 = 'portfolio.views.custom_404'
 handler500 = 'portfolio.views.custom_500'

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Create Tech Stack - Khalia's Portfolio</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            background: #020214;
+            color: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .form-container {
+            width: 100%;
+            max-width: 450px;
+            padding: 40px;
+            background: #0b0b22;
+            border-radius: 15px;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.5);
+        }
+
+        .form-container h1 {
+            margin: 0 0 10px;
+            text-align: center;
+            font-size: 30px;
+        }
+
+        .form-container > p {
+            margin-bottom: 30px;
+            text-align: center;
+            color: #bdbdd0;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #343454;
+            border-radius: 8px;
+            background: #050517;
+            color: white;
+            font-size: 15px;
+            outline: none;
+        }
+
+        .form-group input:focus {
+            border-color: #8b5cf6;
+        }
+
+        .error-message,
+        .field-error {
+            color: #ff8f8f;
+            margin-top: 8px;
+        }
+
+        button {
+            width: 100%;
+            padding: 13px;
+            border: none;
+            border-radius: 8px;
+            background: #8b5cf6;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #7445d8;
+        }
+
+        .back-link {
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+            color: #aaaac0;
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="form-container">
+
+        <h1>Create Tech Stack</h1>
+
+        <p>
+            Add a technology that can be used in your projects.
+        </p>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            {% if form.non_field_errors %}
+                <div class="error-message">
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+
+            <div class="form-group">
+
+                <label for="{{ form.name.id_for_label }}">
+                    Tech Stack Name
+                </label>
+
+                {{ form.name }}
+
+                {% if form.name.errors %}
+                    <div class="field-error">
+                        {{ form.name.errors }}
+                    </div>
+                {% endif %}
+
+            </div>
+
+            <button type="submit">
+                Create Tech Stack
+            </button>
+
+        </form>
+
+        <a
+            class="back-link"
+            href="{% url 'dashboard' %}"
+        >
+            Back to Dashboard
+        </a>
+
+    </div>
+
+</body>
+</html>
